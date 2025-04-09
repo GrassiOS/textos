@@ -35,3 +35,10 @@ export async function updateText(textId: number, text: TextCreateInput): Promise
   if (!response.ok) throw new Error('Failed to update text');
   return response.json();
 }
+
+export async function deleteText(textId: number): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/Texts/${textId}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error('Failed to delete text');
+}
