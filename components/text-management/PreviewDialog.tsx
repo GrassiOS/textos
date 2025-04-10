@@ -22,9 +22,13 @@ export function PreviewDialog({
   const [showFormatted, setShowFormatted] = useState(false);
 
   function formatText(text: string) {
-    return text.split('|').map((line, index) => (
-      <p key={index} className="mb-2">{line}</p>
-    ));
+    // Split by | and handle consecutive | characters
+    return text.split(/(\|+)/).map((part, index) => {
+      if (part === '|') {
+        return <br key={index} />;
+      }
+      return <p key={index} className="mb-2">{part}</p>;
+    });
   }
 
   if (!previewingText) return null;
