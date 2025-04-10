@@ -27,7 +27,8 @@ export function PreviewDialog({
       if (part === '|') {
         return <br key={index} />;
       }
-      return <p key={index} className="mb-2">{part}</p>;
+      // Only render non-empty text parts
+      return part.trim() ? <p key={index} className="mb-2">{part}</p> : null;
     });
   }
 
