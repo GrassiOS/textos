@@ -22,15 +22,28 @@ export function PreviewDialog({
   const [showFormatted, setShowFormatted] = useState(false);
 
   function formatText(text: string) {
-    // Split by | and handle consecutive | characters
-    return text.split(/(\|+)/).map((part, index) => {
-      if (part === '|') {
-        return <br key={index} />;
+    const parts = text.split(/(\|+)/); // Split and keep | groups
+  
+    const output = [];
+  
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+  
+      if (/\|+/.test(part)) {
+        const breaks = part.length;
+        for (let j = 0; j < breaks; j++) {
+          output.push(<br key={`br-${i}-${j}`} />);
+        }
+      } else if (part.trim()) {
+        output.push(<span key={`text-${i}`}>{part.trim()}</span>);
       }
-      // Only render non-empty text parts
-      return part.trim() ? <p key={index} className="mb-2">{part}</p> : null;
-    });
+    }
+  
+    return <div>{output}</div>;
   }
+  
+  
+  
 
   if (!previewingText) return null;
 

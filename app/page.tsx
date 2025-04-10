@@ -65,6 +65,13 @@ export default function Home() {
     setIsPreviewDialogOpen(true);
   }
 
+  function formatText(text: string) {
+    // Split by | and handle consecutive | characters
+    return text.split(/\|+/).map((part, index) => (
+      part.trim() ? <p key={`${index}-text`} className="mb-2">{part}</p> : <br key={`${index}-br`} />
+    ));
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
